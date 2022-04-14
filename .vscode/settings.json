@@ -1,0 +1,25 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#53788a",
+        "activityBar.activeBorder": "#503045",
+        "activityBar.background": "#53788a",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#503045",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "sash.hoverBorder": "#53788a",
+        "statusBar.background": "#405c6a",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#53788a",
+        "statusBarItem.remoteBackground": "#405c6a",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#405c6a",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#405c6a99",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#405c6a",
+    "cSpell.words": [
+        "chưa"
+    ]
+}
