@@ -9,9 +9,6 @@ export const URL = {
   getDataFor5day: (name: string | undefined) =>
     BASE_URL + `/forecast?q=${name}&units=metric&APPID=${API_KEY}`,
   oneCall: ({lat, lon}: {lat: number | undefined; lon: number | undefined}) =>
-    BASE_URL +
-    `/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts&appid=${API_KEY}`,
-  getCurrent: ({lat, lon}: {lat: number; lon: number}) =>
-    BASE_URL +
-    `/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts,daily&appid=${API_KEY}`,
+    BASE_URL + `/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alert&appid=${API_KEY}`,
+  
 };
