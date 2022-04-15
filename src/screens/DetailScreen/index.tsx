@@ -91,8 +91,6 @@ const DetailScreen = () => {
             style={{
               width: 200,
               height: 200,
-
-              // backgroundColor:'red'
             }}
             resizeMode="cover"
           />

@@ -48,7 +48,7 @@ const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
     })
       .then(res => {
         setInitValue(res.data);
-       
+        console.log(res.data)
         // dispatch(onGetData(res.data));
         dispatch(onGetCurrent(res.data));
         setLoading(false);
