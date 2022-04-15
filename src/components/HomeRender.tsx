@@ -10,14 +10,12 @@ import RenderMainWeather from './RenderMainWeather';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 require('dayjs/locale/vi')
-import duration from 'dayjs/plugin/duration'
-dayjs.extend(duration)
+
+
 const HomeRender = ({item}: {item: DataResponseProps | undefined}) => {
   const hour = new Date().getHours();
-  const date = new Date(new Date().getTime() + item?.timezone! * 1000);
+  const date = new Date(new Date().getTime() + item?.timezone! * 1000 || 0);
   const d = date.toISOString();
-
-  // console.log(dayjs.tz.guess(),'timezone')
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
   return (
     <View>
@@ -75,7 +73,7 @@ const HomeRender = ({item}: {item: DataResponseProps | undefined}) => {
         style={{
           marginRight: 60,
           alignSelf: 'center',
-          marginBottom: 70,
+          marginBottom: 150,
         }}>
         <RenderMainWeather
           item={item}

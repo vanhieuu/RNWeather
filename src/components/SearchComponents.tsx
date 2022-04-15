@@ -30,6 +30,7 @@ const SearchComponent = ({
         value={value}
         placeholder={'Vị trí '}
         onSubmitEditing={onSubmitEditing}
+        placeholderTextColor='#23B3F2'
       />
       <View>
         <TouchableOpacity onPress={onPress}>
@@ -69,5 +70,7 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingVertical: 5,
     paddingHorizontal: 5,
+    color:'#23B3F2',
+    tintColor:'#23B3F2'
   },
 });

@@ -1,16 +1,13 @@
 import {
   ActivityIndicator,
   Alert,
-  FlatList,
   Image,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import React, { Props } from 'react';
+import React from 'react';
 import axios from 'axios';
 import {API_KEY, URL} from '../../../config/Api';
 import {
@@ -29,12 +26,15 @@ import {onAdd} from '../../../redux/addItemSlice';
 import Container from '../../../components/Container';
 import {RootState} from '../../../redux/store';
 import Txt from '../../../components/Txt';
+import {onGetCurrent} from '../../../redux/currentSlice';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
 const SetLocation = () => {
-  const [data, setData] = React.useState<DataResponseProps >();
-
+  const [data, setData] = React.useState<DataResponseProps>();
+  const currentLocation = useSelector<RootState, DataResponseProps>(
+    state => state.current,
+  );
   const [arrayData, setArrayData] = React.useState<DataResponseProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [input, setInput] = React.useState<string>('');
@@ -46,6 +46,7 @@ const SetLocation = () => {
   const inputColor = useSelector<RootState, string | undefined>(
     state => state.theme.inputColor,
   );
+
   const fetchDataHandler = React.useCallback(() => {
     setLoading(true);
     setInput('');
@@ -58,22 +59,21 @@ const SetLocation = () => {
           setData(res.data);
           arrayData.push(res.data);
           setArrayData(arrayData.concat());
-          dispatch(onGetData(res.data))
-          dispatch(onAdd({data:arrayData})); 
+          dispatch(onGetData(res.data));
+          dispatch(onAdd({data: arrayData}));
         } else {
           Alert.alert('Vị trí nhập không hợp lệ');
         }
       })
       .catch(err => {
-        console.error(err,'error');
+        console.error(err, 'error');
       })
       .finally(() => setLoading(false));
   }, [API_KEY, input]);
   // dispatch(onAdd({data:arrayData}));
 
-
   return (
-    <Container style={{flex:1}}>
+    <Container style={{flex: 1}}>
       <View style={styles.containerWrap}>
         <TextInput
           style={[styles.searchInputStyle, {backgroundColor: inputColor}]}
@@ -83,7 +83,7 @@ const SetLocation = () => {
           onSubmitEditing={fetchDataHandler}
         />
       </View>
-      {loading  && (
+      {loading && (
         <View>
           <ActivityIndicator size="large" color={textColor} />
         </View>
@@ -101,7 +101,7 @@ const SetLocation = () => {
         />
         <Txt style={{fontSize: 16, fontWeight: 'bold'}}>Vị trí đang chọn</Txt>
       </View>
-      {data === undefined ? (
+      {data && currentLocation === undefined ? (
         <View>
           <Txt style={{color: textColor, fontSize: 16, marginHorizontal: 10}}>
             Bạn chưa chọn vị trí
@@ -110,19 +110,21 @@ const SetLocation = () => {
       ) : (
         <CardTerm
           onPress={() => {
-            dispatch(onGetData(data))
-            navigate('Home',{
-              item:arrayData
-            })
+            dispatch(onGetData(currentLocation));
+            dispatch(onGetCurrent(data!));
+            navigate('Home', {
+              item: arrayData,
+            });
           }}
-          name={data?.name}
-          country={data?.sys.country}
+          name={currentLocation.name}
+          country={currentLocation.sys.country}
           image={
-            DATA_COMPARE.find(el => el.code === data?.weather[0].icon)?.icon
+            DATA_COMPARE.find(el => el.code === currentLocation.weather[0].icon)
+              ?.icon
           }
-          temp={data?.main.temp}
-          max={data?.main.temp_max}
-          min={data?.main.temp_min}
+          temp={currentLocation.main.temp}
+          max={currentLocation.main.temp_max}
+          min={currentLocation.main.temp_min}
         />
       )}
 
@@ -136,19 +138,18 @@ const SetLocation = () => {
         <ScrollView
           horizontal={false}
           showsVerticalScrollIndicator={false}
-          decelerationRate='fast'
+          decelerationRate="fast"
           bounces={false}
           scrollEnabled={true}
           scrollEventThrottle={index}
           stickyHeaderHiddenOnScroll={true}
-          
           key={index}>
-
           <CardTerm
             onPress={() => {
-              dispatch(onGetData(item));
-              navigate('Home',{
-                item:arrayData
+              dispatch(onGetData(currentLocation));
+              dispatch(onGetCurrent(item));
+              navigate('Home', {
+                item: arrayData,
               });
             }}
             name={item.name}
@@ -162,13 +163,6 @@ const SetLocation = () => {
           />
         </ScrollView>
       ))}
-
-      
-        
-        
-    
-
-
     </Container>
   );
 };

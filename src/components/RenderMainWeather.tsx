@@ -14,10 +14,10 @@ const RenderMainWeather = ({item, tintColor, textColor}: itemMain) => {
       style={{
         backgroundColor:
           // item?.rain?.['1h'] === undefined ? '#EDF5F4' : '#25364D',
-          "#25364D",
-          marginBottom:40,
-          // position:'absolute'
-          // flex:1
+          '#25364D',
+        marginBottom: 40,
+        // position:'absolute'
+        // flex:1
       }}>
       <View style={{flexDirection: 'row'}}>
         <Image
@@ -31,7 +31,7 @@ const RenderMainWeather = ({item, tintColor, textColor}: itemMain) => {
         />
         <View style={{flexDirection: 'row', marginHorizontal: 10}}>
           <Text style={{marginHorizontal: 10, color: textColor}}>
-            Lượng mưa: 
+            Lượng mưa:
           </Text>
           <Text style={{fontSize: 15, fontWeight: 'bold', color: textColor}}>
             {item?.rain?.['1h'] === undefined ? 0 : item?.rain['1h']} mm

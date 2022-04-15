@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Animated,
   Dimensions,
+  FlatList,
   StyleSheet,
   View,
 } from 'react-native';
@@ -12,70 +13,44 @@ import {DataResponseProps} from '../../../types/types';
 import HomeRender from '../../../components/HomeRender';
 import axios from 'axios';
 import {API_KEY, URL} from '../../../config/Api';
-import {onGetData} from '../../../redux/dataResponseSlice';
-import Geolocation from '@react-native-community/geolocation';
-import {useNavigation} from '@react-navigation/native';
+import {onGetCurrent} from '../../../redux/currentSlice';
 const {width} = Dimensions.get('window');
 const ITEM_SIZE = width * 0.38;
 const ITEM_SPACING = (width - ITEM_SIZE) / 2;
 
 const Home = () => {
-  const data = useSelector<RootState, DataResponseProps>(
-    state => state.weather,
-  );
   const arrayData = useSelector<RootState, DataResponseProps[] | undefined>(
     state => state.favorite.data,
   );
-  const navigator = useNavigation();
+
+  const ref = React.useRef<FlatList>(null);
   const timers = [...Array(19).keys()].map(i => (i === 0 ? 1 : i * 5));
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const buttonAnimation = React.useRef(new Animated.Value(0)).current;
   const [loading, setLoading] = React.useState(true);
   const [currentIndex, setCurrentIndex] = React.useState(timers[0]);
   const [initValue, setInitValue] = React.useState<DataResponseProps>();
-
+const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
   const dispatch = useDispatch();
-  const [lat, setLat] = useState<number>(0);
-  const [lon, setLon] = useState<number>(0);
 
   const opacity = buttonAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0.5],
   });
 
-  const getUserCurrentLocation = () => {
-    let latitude, longitude;
-    Geolocation.getCurrentPosition((success)=>{console.log(success)}, (e)=>{console.log(e)}, {timeout: 20000});
-    Geolocation.getCurrentPosition(
-      info => {
-        const {coords} = info;
-
-        latitude = coords.latitude;
-        longitude = coords.longitude;
-
-        setLat(latitude);
-        setLon(longitude);
-      },
-      error => console.log(error),
-      {
-        enableHighAccuracy: false,
-        timeout: 2000,
-        maximumAge: 3600000
-    }
-    );
-  };
   React.useEffect(() => {
     // Geolocation.requestAuthorization();
     setLoading(true);
-    getUserCurrentLocation();
+    // getUserCurrentLocation();
     axios({
       method: 'GET',
       url: URL.getData('HaNoi'),
     })
       .then(res => {
         setInitValue(res.data);
-        console.log(res.data);
-        dispatch(onGetData(res.data));
+       
+        // dispatch(onGetData(res.data));
+        dispatch(onGetCurrent(res.data));
         setLoading(false);
       })
       .catch(err => {
@@ -102,6 +77,7 @@ const Home = () => {
         },
       ]}>
       <Animated.FlatList
+        ref={ref}
         data={arrayData}
         keyExtractor={(item, index) => index.toString()}
         horizontal
@@ -111,6 +87,7 @@ const Home = () => {
         }}
         snapToInterval={ITEM_SIZE}
         decelerationRate={'fast'}
+        scrollEventThrottle={currentIndex}
         style={{paddingHorizontal: 10, opacity}}
         contentContainerStyle={{paddingHorizontal: ITEM_SPACING}}
         bounces={false}
@@ -155,7 +132,11 @@ const Home = () => {
                   },
                 ],
               }}>
-              <HomeRender item={initValue || item} />
+              {arrayData?.length! <= 1 ? (
+                <HomeRender item={initValue} />
+              ) : (
+                <HomeRender item={item} />
+              )}
             </Animated.View>
           );
         }}

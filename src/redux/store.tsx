@@ -3,12 +3,14 @@ import weather from './dataResponseSlice'
 import favorite from './addItemSlice'
 import theme from './themeSlice'
 import fiveDays from './FiveDayDataSlice'
+import current from './currentSlice'
 const store = configureStore({
     reducer:{
         weather,
         favorite,
         theme,
-        fiveDays
+        fiveDays,
+        current
     }
 })
 export default store

@@ -64,8 +64,12 @@ export const AddItemSlice = createSlice({
     reducers:{
         onAdd:(state,action:PayloadAction<Props>) =>{
             state.data = action.payload.data
-        }
+        },
+        onGetIndex:(state,action:PayloadAction<Props>)  =>{
+            const index = initValue.data?.findIndex(el => el === el)
+            state.data![index!] = action.payload.data![index!]
+        },
     }
 })
-export const {onAdd} = AddItemSlice.actions
+export const {onAdd,onGetIndex} = AddItemSlice.actions
 export default AddItemSlice.reducer

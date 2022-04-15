@@ -68,11 +68,10 @@ const BottomTabNavigator = () => {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#111827',
+        tabBarActiveTintColor: '#23B3F2',
         tabBarInactiveTintColor:'#D1D5DB',
         tabBarStyle:styles.tabBarStyle,
         tabBarLabelStyle:styles.tabBarLabelStyle
-       
       }}>
       <BottomTab.Screen name="Home" component={Home} options={{
           title: "Trang chủ",
