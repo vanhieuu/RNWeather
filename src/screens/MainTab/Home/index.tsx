@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/store';
 import {DataResponseProps} from '../../../types/types';
@@ -48,8 +48,6 @@ const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
     })
       .then(res => {
         setInitValue(res.data);
-        console.log(res.data)
-        // dispatch(onGetData(res.data));
         dispatch(onGetCurrent(res.data));
         setLoading(false);
       })

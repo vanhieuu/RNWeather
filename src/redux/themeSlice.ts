@@ -12,7 +12,7 @@ export const lightTheme: ITheme = {
   textColor: '#111827',
   dateTimeColor: '#6B7280',
   isThemeLight: true,
-  inputColor:"#000"
+  inputColor:"#fff"
 };
 
 export const darkTheme: ITheme = {

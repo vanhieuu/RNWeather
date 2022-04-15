@@ -5,8 +5,6 @@ import {RootStackParamList, RootTabParamList} from '../types/types';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/MainTab/Home';
 import SetLocation from '../screens/MainTab/SetLocation';
-import Favorite from '../screens/MainTab/Favorite';
-import Profile from '../screens/MainTab/Profile';
 
 
 import LocationManager from '../screens/LocationManager';
@@ -83,16 +81,6 @@ const BottomTabNavigator = () => {
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name={require('../assets/iconSearch.png')} color={color} />,
         }}  />
-      <BottomTab.Screen name="Favorite" component={Favorite}   options={{
-          title: "Yêu thích",
-          headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name={require('../assets/iconFavorite.png')} color={color} />,
-        }} />
-      <BottomTab.Screen name="Profile" component={Profile} options={{
-          title: "Cá nhân",
-          headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name={require('../assets/iconPersonal.png')} color={color} />,
-        }} />
     </BottomTab.Navigator>
   );
 };

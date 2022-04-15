@@ -26,9 +26,7 @@ export type RootTabParamList = {
   Home: {
     item: DataResponseProps[];
   };
-  Favorite: undefined;
   SetLocation: undefined;
-  Profile: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
