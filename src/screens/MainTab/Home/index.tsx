@@ -30,7 +30,6 @@ const Home = () => {
   const [loading, setLoading] = React.useState(true);
   const [currentIndex, setCurrentIndex] = React.useState(timers[0]);
   const [initValue, setInitValue] = React.useState<DataResponseProps>();
-const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
   const dispatch = useDispatch();
 
   const opacity = buttonAnimation.interpolate({
@@ -39,9 +38,7 @@ const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
   });
 
   React.useEffect(() => {
-    // Geolocation.requestAuthorization();
     setLoading(true);
-    // getUserCurrentLocation();
     axios({
       method: 'GET',
       url: URL.getData('HaNoi'),
@@ -56,7 +53,6 @@ const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
       })
       .finally(() => setLoading(false));
   }, [API_KEY]);
-
   {
     loading && (
       <View>
@@ -64,7 +60,6 @@ const [index,setIndex] = React.useState<number>(arrayData?.length! || 1)
       </View>
     );
   }
-
   return (
     <View
       style={[
@@ -173,6 +168,3 @@ const styles = StyleSheet.create({
     // margin:10,
   },
 });
-function watchID(watchID: any) {
-  throw new Error('Function not implemented.');
-}

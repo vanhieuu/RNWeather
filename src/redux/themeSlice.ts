@@ -20,7 +20,7 @@ export const darkTheme: ITheme = {
   textColor: '#23B3F2',
   isThemeLight: false,
   dateTimeColor: '#23B3F2',
-    inputColor:'#000'
+  inputColor:'#000'
 
 };
 const initValue: ITheme = darkTheme;
@@ -33,6 +33,8 @@ export const themeSlice = createSlice({
       state.backgroundColor = action.payload.backgroundColor;
       state.textColor = action.payload.textColor;
       state.isThemeLight = action.payload.isThemeLight;
+      state.inputColor = action.payload.inputColor;
+      state.dateTimeColor = action.payload.dateTimeColor;
     },
   },
 });

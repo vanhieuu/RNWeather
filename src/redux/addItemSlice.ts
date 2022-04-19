@@ -52,24 +52,20 @@ const initValue: Props = {
       id: 0,
       name: '',
       cod: 0,
-      rain:{
-        "1h":1.15
-      }
+      rain: {
+        '1h': 1.15,
+      },
     },
   ],
 };
 export const AddItemSlice = createSlice({
-    name:'favorite',
-    initialState:initValue,
-    reducers:{
-        onAdd:(state,action:PayloadAction<Props>) =>{
-            state.data = action.payload.data
-        },
-        onGetIndex:(state,action:PayloadAction<Props>)  =>{
-            const index = initValue.data?.findIndex(el => el === el)
-            state.data![index!] = action.payload.data![index!]
-        },
-    }
-})
-export const {onAdd,onGetIndex} = AddItemSlice.actions
-export default AddItemSlice.reducer
+  name: 'favorite',
+  initialState: initValue,
+  reducers: {
+    onAdd: (state, action: PayloadAction<Props>) => {
+      state.data = action.payload.data;
+    },
+  },
+});
+export const {onAdd} = AddItemSlice.actions;
+export default AddItemSlice.reducer;
