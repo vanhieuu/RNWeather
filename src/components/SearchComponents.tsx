@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 5,
     color:'#23B3F2',
-    tintColor:'#23B3F2'
+
   },
 });
